@@ -5,7 +5,7 @@
  * @Author: Goorln
  * @Date: 2023-10-27 09:44:58
  * @LastEditors: Goorln
- * @LastEditTime: 2023-10-27 13:50:05
+ * @LastEditTime: 2023-10-27 14:11:15
  */
 
 declare(strict_types=1);
@@ -106,7 +106,34 @@ class User extends Base
      */
     public function update(Request $request, $id)
     {
-        //
+        // 获取数据
+        $data = $request->param();
+
+        // 验证返回
+        try {
+            // 验证
+            validate(UserValidate::class)->scene('edit')->check($data);
+        } catch (ValidateException $exception) {
+            //错误返回
+            return $this->create([], $exception->getError(), 400);
+        }
+
+        // 获取数据库的邮箱地址
+        $updateData = UserModel::find($id);
+        // 邮箱修改时不可以一致
+        if ($updateData->email === $data['email']) {
+            return $this->create([], '修改的邮箱和原来的邮箱一致', 400);
+        }
+
+        // 修改
+        $id = UserModel::update($data)->getData('id');
+
+        // 判断是否有值
+        if (empty($id)) {
+            return $this->create([], '修改失败~', 400);
+        } else {
+            return $this->create($data, '修改成功~', 200);
+        }
     }
 
     /**

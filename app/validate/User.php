@@ -5,7 +5,7 @@
  * @Author: Goorln
  * @Date: 2023-10-27 11:46:51
  * @LastEditors: Goorln
- * @LastEditTime: 2023-10-27 11:52:44
+ * @LastEditTime: 2023-10-27 14:03:35
  */
 
 declare(strict_types=1);
@@ -35,4 +35,9 @@ class User extends Validate
      * @var array
      */
     protected $message = [];
+
+    // 验证场景
+    protected $scene = [
+        'edit' => ['email']
+    ];
 }
