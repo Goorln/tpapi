@@ -1,5 +1,12 @@
 <?php
-namespace app\controller;
+/*
+ * @Descripttion: 
+ * @version: 
+ * @Author: Goorln
+ * @Date: 2023-10-27 15:07:31
+ */
+
+namespace app\index\controller;
 
 use app\BaseController;
 

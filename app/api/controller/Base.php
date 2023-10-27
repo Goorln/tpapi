@@ -4,11 +4,9 @@
  * @version: 
  * @Author: Goorln
  * @Date: 2023-10-27 10:21:36
- * @LastEditors: Goorln
- * @LastEditTime: 2023-10-27 11:35:31
  */
 
-namespace app\controller;
+namespace app\api\controller;
 
 use think\facade\Config;
 use think\facade\Request;

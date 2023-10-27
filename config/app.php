@@ -1,4 +1,10 @@
 <?php
+/*
+ * @Descripttion: 
+ * @version: 
+ * @Author: Goorln
+ * @Date: 2023-10-27 09:30:39
+ */
 // +----------------------------------------------------------------------
 // | 应用设置
 // +----------------------------------------------------------------------
@@ -16,14 +22,19 @@ return [
     'default_timezone' => 'Asia/Shanghai',
 
     // 应用映射（自动多应用模式有效）
-    'app_map'          => [],
+    'app_map'          => [
+        'think' => 'admin'
+    ],
     // 域名绑定（自动多应用模式有效）
-    'domain_bind'      => [],
+    'domain_bind'      => [
+        'api' => 'api'
+    ],
     // 禁止URL访问的应用列表（自动多应用模式有效）
     'deny_app_list'    => [],
 
     // 异常页面的模板文件
-    'exception_tmpl'   => app()->getThinkPath() . 'tpl/think_exception.tpl',
+    // 'exception_tmpl'   => app()->getThinkPath() . 'tpl/think_exception.tpl',
+    'exception_tmpl'   => \think\facade\App::getAppPath() . '404.json',
 
     'http_exception_template'    =>  [
         // 定义404错误的模板文件地址
