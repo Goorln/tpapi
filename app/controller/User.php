@@ -1,12 +1,5 @@
 <?php
-/*
- * @Descripttion: 
- * @version: 
- * @Author: Goorln
- * @Date: 2023-10-27 09:44:58
- * @LastEditors: Goorln
- * @LastEditTime: 2023-10-27 14:31:47
- */
+
 
 declare(strict_types=1);
 
@@ -174,6 +167,28 @@ class User extends Base
             return $this->create([], '没有数据', 204);
         } else {
             return $this->create($data, '数据请求成功', 200);
+        }
+    }
+
+    public function login(Request $request)
+    {
+        $data = $request->param();
+
+        // 验证用户密码
+        $result = Validate::rule([
+            'username' => 'unique:user,username^password',
+
+        ])->check([
+            'username' => $data['username'],
+            'password' => sha1($data['password'])
+        ]);
+
+        // 判断反向
+        if (!$result) {
+            session('admin', $data['username']);
+            return $this->create(true, '登录成功', 200);
+        } else {
+            return $this->create([], '用户名或密码错误', 400);
         }
     }
 }
