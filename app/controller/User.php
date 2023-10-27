@@ -5,7 +5,7 @@
  * @Author: Goorln
  * @Date: 2023-10-27 09:44:58
  * @LastEditors: Goorln
- * @LastEditTime: 2023-10-27 13:38:23
+ * @LastEditTime: 2023-10-27 13:50:05
  */
 
 declare(strict_types=1);
@@ -119,7 +119,15 @@ class User extends Base
     {
         // 判断ID是否为整型
         if (!Validate::isInteger($id)) {
-            return $this->create([], 'id参数不合法~', 404);
+            return $this->create([], 'id参数不合法~', 400);
+        }
+
+        // 删除
+        try {
+            UserModel::find($id)->delete();
+            return $this->create([], '删除成功~', 200);
+        } catch (\Error $e) {
+            return $this->create([], '错误无法删除~', 400);
         }
     }
 }
