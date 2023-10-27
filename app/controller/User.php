@@ -5,7 +5,7 @@
  * @Author: Goorln
  * @Date: 2023-10-27 09:44:58
  * @LastEditors: Goorln
- * @LastEditTime: 2023-10-27 14:11:15
+ * @LastEditTime: 2023-10-27 14:31:47
  */
 
 declare(strict_types=1);
@@ -155,6 +155,25 @@ class User extends Base
             return $this->create([], '删除成功~', 200);
         } catch (\Error $e) {
             return $this->create([], '错误无法删除~', 400);
+        }
+    }
+
+    public function hobby($id)
+    {
+
+        // 判断ID是否为整型
+        if (!Validate::isInteger($id)) {
+            return $this->create([], 'id参数不合法~', 400);
+        }
+
+        // 喜好数据集
+        $data = UserModel::find($id)->hobby()->field('id,content')->select();
+
+        // 判断是否有值
+        if ($data->isEmpty()) {
+            return $this->create([], '没有数据', 204);
+        } else {
+            return $this->create($data, '数据请求成功', 200);
         }
     }
 }

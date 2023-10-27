@@ -18,3 +18,6 @@ Route::get('hello/:name', 'index/hello');
 
 // 用户模块
 Route::resource('user', 'User');
+
+// 一对多用户喜好
+Route::get('user/:id/hobby', 'User/hobby');
